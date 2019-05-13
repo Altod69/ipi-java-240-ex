@@ -7,14 +7,28 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         ProduitManager pm = new ProduitManager();
+        
+        BitcoinService bitcoinServiceWithCache = new BitcoinService();
+        bitcoinServiceWithCache.setForceRefresh(false);
+        
+        BitcoinService bitcoinServiceWithoutCache = new BitcoinService();
+        bitcoinServiceWithoutCache.setForceRefresh(true);
+        
+        WebPageManager webPageManager = new WebPageManager();
+        
+        pm.setBitcoinService(bitcoinServiceWithCache);
+        pm.setWebPageManager(webPageManager);
+        
+        bitcoinServiceWithoutCache.setWebPageManager(webPageManager);
+        bitcoinServiceWithCache.setWebPageManager(webPageManager);
 
         System.out.println("Bienvenue !");
         while(true){
             System.out.println("Vous souhaitez : ");
-            System.out.println("1 - ConnaÃ®tre le cours du bitcoin");
+            System.out.println("1 - Connaître le cours du bitcoin");
             System.out.println("2 - Ajouter un produit au catalogue");
             System.out.println("3 - Voir tous les produits du catalogue");
-            System.out.println("4 - Voir les dÃ©tails d'un produit");
+            System.out.println("4 - Voir les détails d'un produit");
             System.out.println("5 - Initialiser le catalogue");
             System.out.println("0 - Quitter");
 
@@ -22,8 +36,7 @@ public class Main {
             int saisie = scanner.nextInt();
             switch (saisie){
                 case 1:
-                    BitcoinService bitcoinService = new BitcoinService();
-                    System.out.println("1 BTC = " + bitcoinService.getBitcoinRate() + " â‚¬");
+                    System.out.println("1 BTC = " + bitcoinServiceWithoutCache.getBitcoinRate() + " €");
                     break;
                 case 2:
                     pm.ajouterProduit();
@@ -32,7 +45,7 @@ public class Main {
                     pm.afficherTousLesProduits();
                     break;
                 case 4:
-                    System.out.println("Quel numÃ©ro de produit ?");
+                    System.out.println("Quel numéro de produit ?");
                     pm.afficherDetailProduit(scanner.nextInt());
                     break;
                 case 5:

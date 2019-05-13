@@ -30,8 +30,8 @@ public class Produit {
     @Override
     public String toString() {
         return "Produit : " +
-                "'" + intitule + '\'' +
+                "'" + intitule + "\'" +
                 ", prix : " + prixEuro +
-                'â‚¬';
+                " €";
     }
 }

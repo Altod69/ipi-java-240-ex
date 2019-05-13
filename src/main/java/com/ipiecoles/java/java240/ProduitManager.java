@@ -8,19 +8,29 @@ import java.util.Scanner;
 public class ProduitManager {
 
     private List<Produit> produits = new ArrayList<>();
+    private BitcoinService bitcoinService = new BitcoinService();
+    private WebPageManager webPageManager = new WebPageManager();
+    
+    public void setBitcoinService(BitcoinService bitcoinService) {
+		this.bitcoinService = bitcoinService;
+	}
+
+	public void setWebPageManager(WebPageManager webPageManager) {
+		this.webPageManager = webPageManager;
+	}
 
     /**
-     * M√©thode qui demande les caract√©ristiques d'un nouveau produit
-     * √† l'utilisateur et qui l'ajoute au catalogue
+     * MÈthode qui demande les caractÈristiques d'un nouveau produit
+     * ‡† l'utilisateur et qui l'ajoute au catalogue
      */
     public void ajouterProduit(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Entrez l'intitul√© du produit");
+        System.out.println("Entrez l'intitulÈ du produit");
         String intitule = scanner.nextLine();
         if(produits.stream().
                 map(Produit::getIntitule).
                 anyMatch(s -> s.equals(intitule))){
-            System.out.println("Ce produit existe d√©j√† dans le catalogue !");
+            System.out.println("Ce produit existe dÈj‡† dans le catalogue !");
             return;
         }
         System.out.println("Entrez le prix du produit");
@@ -30,20 +40,19 @@ public class ProduitManager {
     }
 
     /**
-     * M√©thode qui affiche tous les produits du catalogue
+     * MÈthode qui affiche tous les produits du catalogue
      */
     public void afficherTousLesProduits(){
         produits.forEach(System.out::println);
     }
 
     /**
-     * M√©thode qui affiche les d√©tails du produit du num√©ro pass√© en param√®tre
+     * MÈthode qui affiche les dÈtails du produit du numÈro passÈ en paramËtre
      * et notamment le prix en bitcoin
      * @param index
      * @throws IOException
      */
     public void afficherDetailProduit(Integer index) throws IOException {
-        BitcoinService bitcoinService = new BitcoinService();
         System.out.println(produits.get(index).toString() + ", " + bitcoinService.getBitcoinPrice(produits.get(index).getPrixEuro()) + " BTC");
     }
 
@@ -52,7 +61,6 @@ public class ProduitManager {
      * @throws IOException
      */
     public void initialiserCatalogue() throws IOException {
-        WebPageManager webPageManager = new WebPageManager();
         String catalogue = webPageManager.getPageContentsFromCacheIfExists("https://pjvilloud.github.io/ipi-java-240-cours/catalogue.txt");
         int nbProduits = 0;
         for(String line : catalogue.split("\n")){
