@@ -16,17 +16,17 @@ public class BitcoinService {
     	this.webPageManager = webPageManager;
     }
     /**
-     * Méthode qui renvoie le cours du Bitcoin
+     * MÃ©thode qui renvoie le cours du Bitcoin
      * @return le cours du bitcoin
-     * @throws IOException si impossible d'acceder à  la bourse
+     * @throws IOException si impossible d'acceder Ã  la bourse
      */
     public Double getBitcoinRate() throws IOException {
         if(rate != null && !forceRefresh){
-            System.out.println("Récupération du cours du bitcoin en cache...");
+            System.out.println("RÃ©cupÃ©ration du cours du bitcoin en cache...");
             return rate;
         }
 
-        System.out.println("Récupération du cours du bitcoin sur site distant");
+        System.out.println("RÃ©cupÃ©ration du cours du bitcoin sur site distant");
 
         String apiResponse = webPageManager.getPageContents("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=EUR");
         apiResponse = apiResponse.replace("{\"EUR\":","");
@@ -36,10 +36,10 @@ public class BitcoinService {
     }
 
     /**
-     * Méthode qui renvoie l'équivalent en bitcoin du prix en euro passé en paramètre
-     * @param prixEnEuro le prix à convertir
+     * MÃ©thode qui renvoie l'Ã©quivalent en bitcoin du prix en euro passÃ© en paramÃ¨tre
+     * @param prixEnEuro le prix Ã  convertir
      * @return le prix en bitcoin au taux actuel
-     * @throws IOException si impossible d'acceder à  la bourse
+     * @throws IOException si impossible d'acceder Ã  la bourse
      */
     public Double getBitcoinPrice(Double prixEnEuro) throws IOException {
         if(rate == null){

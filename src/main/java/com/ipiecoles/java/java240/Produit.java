@@ -32,6 +32,6 @@ public class Produit {
         return "Produit : " +
                 "'" + intitule + "\'" +
                 ", prix : " + prixEuro +
-                " €";
+                " â‚¬";
     }
 }
