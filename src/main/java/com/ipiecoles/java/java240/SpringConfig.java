@@ -1,40 +1,32 @@
 package com.ipiecoles.java.java240;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 
 @Configuration
+@PropertySource("classpath:application.properties")
+@ComponentScan(basePackages = "com.ipiecoles.java.java240")
 public class SpringConfig {
+
+	@Value("${bitcoinService.forceRefresh}")
+	Boolean forceRefresh;
 	
-	@Bean(name="bitcoinServiceWithoutCache")
+	@Bean(name = "bitcoinServiceWithoutCache")
 	@Scope("singleton")
 	public BitcoinService bitcoinServiceWithoutCache() {
 		BitcoinService bitcoinService = new BitcoinService();
 		bitcoinService.setForceRefresh(true);
-		bitcoinService.setWebPageManager(webPageManager());
 		return bitcoinService;
 	}
-	
-	@Bean(name="bitcoinServiceWithCache")
+
+	@Bean(name = "bitcoinServiceWithCache")
 	public BitcoinService bitcoinServiceWithCache() {
 		BitcoinService bitcoinService = new BitcoinService();
 		bitcoinService.setForceRefresh(false);
-		bitcoinService.setWebPageManager(webPageManager());
 		return bitcoinService;
-	}
-	
-	@Bean
-	public WebPageManager webPageManager() {
-		return new WebPageManager();
-	}
-	
-	@Bean(initMethod="initialiserCatalogue")
-	public ProduitManager produitManager() {
-		ProduitManager produitManager = new ProduitManager();
-		
-		produitManager.setWebPageManager(webPageManager());
-		produitManager.setBitcoinService(bitcoinServiceWithCache());
-		return produitManager;
 	}
 }

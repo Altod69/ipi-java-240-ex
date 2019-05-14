@@ -7,15 +7,18 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.StringJoiner;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class WebPageManager {
 
     private HashMap<String, String> cacheContent = new HashMap<>();
 
     /**
-     * Fait une requête GET Ã  l'url passée en paramètre
+     * Fait une requÃªte GET Ã  l'url passÃ©e en paramÃ¨tre
      * @param address URL Ã  contacter
-     * @return le contenu renvoyé par la requête GET
-     * @throws IOException si l'adresse n'a pas pu être contactée.
+     * @return le contenu renvoyÃ© par la requÃªte GET
+     * @throws IOException si l'adresse n'a pas pu Ãªtre contactÃ©e.
      */
     public String getPageContents(String address) throws IOException {
         System.out.println("Consultation de l'adresse " + address);
@@ -39,14 +42,14 @@ public class WebPageManager {
     }
 
     /**
-     * Fait appel Ã  getPageContents si l'adresse n'a jamais été jointe auparavant, sinon renvoie le contenu de l'appel précédent
+     * Fait appel Ã  getPageContents si l'adresse n'a jamais Ã©tÃ© jointe auparavant, sinon renvoie le contenu de l'appel prÃ©cÃ©dent
      * @param address URL Ã  contacter
-     * @return Le contenu en cache (si déjà  consulté) de la page située Ã  l'adresse en paramètre
-     * @throws IOException si l'adresse n'a pas pu être contactée.
+     * @return Le contenu en cache (si dÃ©jÃ  consultÃ©) de la page situÃ©e Ã  l'adresse en paramÃ¨tre
+     * @throws IOException si l'adresse n'a pas pu Ãªtre contactÃ©e.
      */
     public String getPageContentsFromCacheIfExists(String address) throws IOException {
         if(cacheContent.containsKey(address)){
-            System.out.println("Récupération dans le cache...");
+            System.out.println("RÃ©cuperation dans le cache...");
             return cacheContent.get(address);
         } else {
             return getPageContents(address);

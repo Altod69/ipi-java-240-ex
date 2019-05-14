@@ -23,7 +23,7 @@ public class Main {
             System.out.println("1 - Connaitre le cours du bitcoin");
             System.out.println("2 - Ajouter un produit au catalogue");
             System.out.println("3 - Voir tous les produits du catalogue");
-            System.out.println("4 - Voir les dÃ©tails d'un produit");
+            System.out.println("4 - Voir les détails d'un produit");
             System.out.println("5 - Initialiser le catalogue");
             System.out.println("0 - Quitter");
 
@@ -31,7 +31,7 @@ public class Main {
             int saisie = scanner.nextInt();
             switch (saisie){
                 case 1:
-                    System.out.println("1 BTC = " + bitcoinServiceWithoutCache.getBitcoinRate() + " â‚¬");
+                    System.out.println("1 BTC = " + bitcoinServiceWithoutCache.getBitcoinRate() + " €");
                     break;
                 case 2:
                     pm.ajouterProduit();
